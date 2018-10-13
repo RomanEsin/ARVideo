@@ -146,7 +146,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPickerViewDataSourc
 //        let videoPlayer = AVPlayer(url: videoURL)
         var videoName = ""
         if anchor.referenceImage.name == "airpods" {
-            videoName = "airpods"
+            videoName = "airpods" 
         } else if anchor.referenceImage.name == "physics" {
             videoName = "video3"
         } else if anchor.referenceImage.name == "history" {
