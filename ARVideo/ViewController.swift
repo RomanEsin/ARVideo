@@ -22,6 +22,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPickerViewDataSourc
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var pickerView: UIPickerView!
     
+    var player = AVPlayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Image Picker Setup
@@ -88,7 +90,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPickerViewDataSourc
         images.append(image!)
     }
     
-    //MARK:- Did Add Node For Anchor
+    //MARK:- Did Update Node For Anchor
     var imageIsDetected = false
     var isDetected: Bool {
         get {
@@ -103,10 +105,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPickerViewDataSourc
             }
         }
     }
+    
+    //TODO: - When Image Is Not Detected Pause The Player
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let anchor = anchor as? ARImageAnchor else { return }
-        
+        play
     }
+    
+    //MARK:- Did Add Node For Anchor
     let feedback = UIImpactFeedbackGenerator(style: .medium)
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let anchor = anchor as? ARImageAnchor else { return }
@@ -144,7 +150,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPickerViewDataSourc
         let resolution = resolutionForLocalVideo(url: Bundle.main.url(forResource: videoName, withExtension: "mp4")!)!
         
         //Add Video To Node
-        let player = AVPlayer(url: Bundle.main.url(forResource: videoName, withExtension: "mp4")!)
+        player = AVPlayer(url: Bundle.main.url(forResource: videoName, withExtension: "mp4")!)
         let video = self.video.copy() as! SCNNode
         let aspectRatio = resolution.width / resolution.height
         
@@ -174,7 +180,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPickerViewDataSourc
         let group = SCNAction.group([scaleUp, fadeIn, move])
         video.runAction(group) {
             DispatchQueue.main.async {
-                player.play()
+                self.player.play()
                 self.feedback.impactOccurred()
             }
         }
