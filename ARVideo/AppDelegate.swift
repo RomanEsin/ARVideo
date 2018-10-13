@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  ARVideo
 //
-//  Created by Юрий Есин on 12.10.2018.
+//  Created by Roman Esin on 12.10.2018.
 //  Copyright © 2018 Roman Esin. All rights reserved.
 //
 

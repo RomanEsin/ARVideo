@@ -89,9 +89,28 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPickerViewDataSourc
     }
     
     //MARK:- Did Add Node For Anchor
+    var imageIsDetected = false
+    var isDetected: Bool {
+        get {
+            return imageIsDetected
+        }
+        set {
+            imageIsDetected = newValue
+            if newValue {
+                
+            } else {
+                
+            }
+        }
+    }
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard let anchor = anchor as? ARImageAnchor else { return }
+        
+    }
     let feedback = UIImpactFeedbackGenerator(style: .medium)
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let anchor = anchor as? ARImageAnchor else { return }
+        isDetected = true
         DispatchQueue.main.async {
             self.feedback.prepare()
         }
@@ -146,7 +165,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIPickerViewDataSourc
         let scaleUp = SCNAction.scale(to: 1, duration: 2)
         scaleUp.timingMode = .easeIn
         
-        let fadeIn = SCNAction.fadeOpacity(to: 0.95, duration: 2)
+        let fadeIn = SCNAction.fadeOpacity(to: 0.98, duration: 2)
         fadeIn.timingMode = .easeIn
         
         let move = SCNAction.moveBy(x: 0, y: 0.07, z: 0, duration: 1)
